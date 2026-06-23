@@ -1,4 +1,4 @@
 window.GEOFENCE_ABLY_CONFIG = {
-  apiKey: "PASTE_ABLY_API_KEY",
+  apiKey: "MVV4kw.8RogjQ:GeUruezISMiWDRcw-Iz5NXuVZ5NoxBt31aW4p6fV9GQ",
   channelName: "mn-moopen-geofence-demo"
 };

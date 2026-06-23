@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live Phone Geofence Test</title>
+    <link rel="stylesheet" href="phone-geofence-live.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <p class="eyebrow">Live phone geofence</p>
+        <h1>Petrol Pump Boundary Test</h1>
+        <p>
+          This page uses B1, B2, B3, and B4 as the green boundary. If the phone
+          moves outside that polygon, the alarm rings.
+        </p>
+      </section>
+
+      <section class="status-card waiting" id="statusCard">
+        <span>Current status</span>
+        <strong id="statusText">Not tracking</strong>
+        <p id="statusHint">Tap Start Tracking on the phone and allow location access.</p>
+      </section>
+
+      <section class="controls">
+        <button id="startTracking" type="button">Start Tracking</button>
+        <button id="stopAlarm" type="button">Stop Alarm</button>
+      </section>
+
+      <section class="dashboard">
+        <article class="panel">
+          <h2>Live Reading</h2>
+          <dl>
+            <div>
+              <dt>Nearest nozzle</dt>
+              <dd id="nearestNozzle">--</dd>
+            </div>
+            <div>
+              <dt>Distance to nozzle</dt>
+              <dd id="nearestDistance">--</dd>
+            </div>
+            <div>
+              <dt>GPS accuracy</dt>
+              <dd id="accuracyText">--</dd>
+            </div>
+            <div>
+              <dt>Latitude</dt>
+              <dd id="latText">--</dd>
+            </div>
+            <div>
+              <dt>Longitude</dt>
+              <dd id="lngText">--</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="panel">
+          <h2>Boundary Points</h2>
+          <ul>
+            <li>B1: 10.091776, 76.345603</li>
+            <li>B2: 10.091763, 76.345831</li>
+            <li>B3: 10.091247, 76.345600</li>
+            <li>B4: 10.091333, 76.345304</li>
+          </ul>
+          <p>
+            The sketch is for visual reference. The actual geofence check is
+            calculated from the GPS coordinates above.
+          </p>
+        </article>
+      </section>
+
+      <section class="sketch-panel">
+        <div class="sketch-wrap">
+          <img src="fence-sketch-expert.svg" alt="Expert petrol pump fence sketch" />
+          <div class="phone-marker" id="phoneMarker">You</div>
+        </div>
+      </section>
+
+      <section class="note">
+        <h2>Before Field Testing</h2>
+        <p>
+          Keep this page open on the phone screen while testing. Mobile browsers
+          normally require an HTTPS link for GPS, and alarm sound needs the Start
+          Tracking button tap so the browser allows audio.
+        </p>
+      </section>
+    </main>
+
+    <script src="phone-geofence-live.js"></script>
+  </body>
+</html>

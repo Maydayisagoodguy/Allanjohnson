@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CA Ably Live Tracker</title>
+    <link rel="stylesheet" href="live-geofence.css" />
+  </head>
+  <body>
+    <main class="phone-page">
+      <section class="phone-card header-card">
+        <p class="eyebrow">CA live tracking</p>
+        <h1>Ably Phone Tracker</h1>
+        <p>This page sends the CA phone location live to the supervisor page.</p>
+      </section>
+
+      <section class="phone-card">
+        <label>
+          CA Name
+          <input id="caName" value="CA 1" />
+        </label>
+        <label>
+          Assigned nozzle
+          <select id="assignedNozzle">
+            <option>N1</option>
+            <option>N2</option>
+            <option>N3</option>
+            <option>N4</option>
+            <option>N5</option>
+            <option>N6</option>
+          </select>
+        </label>
+        <button id="startTracking" type="button">Start Tracking</button>
+      </section>
+
+      <section class="phone-card status-card waiting" id="statusCard">
+        <span>Current status</span>
+        <strong id="statusText">Not tracking</strong>
+        <p id="statusHint">Paste Ably key, deploy through HTTPS, then tap Start Tracking.</p>
+      </section>
+
+      <section class="phone-card">
+        <h2>Live Reading</h2>
+        <dl>
+          <div><dt>Nearest nozzle</dt><dd id="nearestNozzle">--</dd></div>
+          <div><dt>Distance to assigned</dt><dd id="assignedDistance">--</dd></div>
+          <div><dt>GPS accuracy</dt><dd id="accuracyText">--</dd></div>
+          <div><dt>Last sent</dt><dd id="lastSent">--</dd></div>
+        </dl>
+      </section>
+    </main>
+
+    <script src="https://cdn.ably.com/lib/ably.min-2.js"></script>
+    <script src="ably-config.js"></script>
+    <script src="geofence-core.js"></script>
+    <script src="ca-ably-tracker.js"></script>
+  </body>
+</html>

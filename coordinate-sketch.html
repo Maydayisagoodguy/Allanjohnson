@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Petrol Pump Coordinate Sketch</title>
+    <style>
+      :root {
+        --bg: #f5f7f7;
+        --card: #ffffff;
+        --text: #172322;
+        --muted: #657371;
+        --line: #d8e1df;
+        --green: #16845f;
+        --blue: #275db8;
+        --amber: #a86400;
+        --red: #b42318;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--text);
+        background: var(--bg);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1220px, 100%);
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 10px;
+        font-size: clamp(2rem, 5vw, 3.8rem);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.08rem;
+        letter-spacing: 0;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--blue);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(330px, 0.8fr);
+        gap: 14px;
+      }
+
+      .panel,
+      .sketch-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--card);
+        box-shadow: 0 16px 42px rgba(20, 32, 30, 0.08);
+      }
+
+      .sketch-panel {
+        padding: 16px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .sketch-wrap {
+        width: 100%;
+        overflow: auto;
+      }
+
+      svg {
+        width: 100%;
+        min-width: 700px;
+        height: 780px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #eef4f3;
+      }
+
+      .road {
+        fill: #9aa8b1;
+      }
+
+      .road-line {
+        stroke: #ffffff;
+        stroke-width: 4;
+        stroke-dasharray: 28 24;
+      }
+
+      .boundary {
+        fill: rgba(22, 132, 95, 0.12);
+        stroke: var(--green);
+        stroke-width: 4;
+      }
+
+      .boundary-guide {
+        fill: none;
+        stroke: #87b5a4;
+        stroke-width: 2;
+        stroke-dasharray: 8 8;
+      }
+
+      .nozzle-line {
+        fill: none;
+        stroke: var(--amber);
+        stroke-width: 3;
+        stroke-dasharray: 7 7;
+      }
+
+      .point {
+        stroke: #fff;
+        stroke-width: 3;
+      }
+
+      .point.boundary-point {
+        fill: var(--green);
+      }
+
+      .point.inner-point {
+        fill: var(--blue);
+      }
+
+      .point.nozzle-point {
+        fill: var(--amber);
+      }
+
+      .label {
+        font-size: 15px;
+        font-weight: 900;
+        paint-order: stroke;
+        stroke: #fff;
+        stroke-width: 4px;
+        stroke-linejoin: round;
+      }
+
+      .small-label {
+        fill: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .legend {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .legend span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      .dot.blue {
+        background: var(--blue);
+      }
+
+      .dot.amber {
+        background: var(--amber);
+      }
+
+      .summary {
+        display: grid;
+        gap: 10px;
+      }
+
+      .summary div {
+        padding: 12px;
+        border-radius: 8px;
+        background: #eef4f3;
+      }
+
+      .summary strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .summary span {
+        color: var(--muted);
+      }
+
+      table {
+        width: 100%;
+        margin-top: 12px;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+
+      th,
+      td {
+        padding: 9px 8px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+      }
+
+      code {
+        display: block;
+        overflow: auto;
+        max-height: 260px;
+        padding: 12px;
+        border-radius: 8px;
+        color: #10201d;
+        background: #edf2f1;
+        white-space: pre;
+      }
+
+      @media (max-width: 900px) {
+        main {
+          padding: 16px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Coordinate analysis</p>
+      <h1>Petrol Pump Rough Geofence Sketch</h1>
+      <p>
+        This sketch is generated directly from the coordinates you provided. It
+        uses a local meter-based projection so the shape, distances, and point
+        ordering can be checked before making the final geofence.
+      </p>
+
+      <section class="grid">
+        <article class="sketch-panel">
+          <div class="sketch-wrap">
+            <svg id="sketch" viewBox="0 0 900 780" role="img" aria-label="Generated coordinate sketch"></svg>
+          </div>
+          <div class="legend">
+            <span><i class="dot"></i>Outer geofence corner points B1, B2, B3, B4</span>
+            <span><i class="dot blue"></i>Additional boundary or internal marked B-points</span>
+            <span><i class="dot amber"></i>Nozzle / dispenser reference points N1-N6</span>
+          </div>
+        </article>
+
+        <aside class="panel">
+          <h2>Geospatial Reading</h2>
+          <div class="summary" id="summary"></div>
+
+          <h2 style="margin-top: 18px;">Point Table</h2>
+          <div style="overflow:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Point</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>X m</th>
+                  <th>Y m</th>
+                </tr>
+              </thead>
+              <tbody id="pointRows"></tbody>
+            </table>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel" style="margin-top: 14px;">
+        <h2>Draft GeoJSON Boundary</h2>
+        <p>
+          This is the first rough polygon using B1, B2, B3, and B4. After you
+          confirm the sketch shape, this can become the actual HTML geofence.
+        </p>
+        <code id="geojson"></code>
+      </section>
+    </main>
+
+    <script>
+      const points = {
+        B1: [10.091776, 76.345603],
+        B2: [10.091763, 76.345831],
+        B3: [10.091247, 76.345600],
+        B4: [10.091333, 76.345304],
+        B5: [10.091584, 76.345768],
+        B6: [10.091575, 76.345753],
+        B7: [10.091415, 76.345623],
+        B8: [10.091411, 76.345631],
+        B9: [10.091294, 76.345501],
+        B10: [10.091438, 76.345435],
+        B11: [10.091540, 76.345511],
+        B12: [10.091591, 76.345543],
+        B13: [10.091681, 76.345586],
+        N1: [10.091389, 76.345498],
+        N2: [10.091441, 76.345518],
+        N3: [10.091483, 76.345555],
+        N4: [10.091547, 76.345589],
+        N5: [10.091583, 76.345628],
+        N6: [10.091681, 76.345666]
+      };
+
+      const outerOrder = ["B1", "B2", "B3", "B4"];
+      const roadSideOrder = ["B13", "B12", "B11", "B10"];
+      const oppositeSideOrder = ["B5", "B6", "B8", "B7", "B9"];
+      const nozzleOrder = ["N6", "N5", "N4", "N3", "N2", "N1"];
+
+      const lats = Object.values(points).map((point) => point[0]);
+      const lngs = Object.values(points).map((point) => point[1]);
+      const minLat = Math.min(...lats);
+      const maxLat = Math.max(...lats);
+      const minLng = Math.min(...lngs);
+      const maxLng = Math.max(...lngs);
+      const meanLat = ((minLat + maxLat) / 2) * Math.PI / 180;
+      const metersPerLat = 111320;
+      const metersPerLng = 111320 * Math.cos(meanLat);
+      const widthMeters = (maxLng - minLng) * metersPerLng;
+      const heightMeters = (maxLat - minLat) * metersPerLat;
+
+      function toMeters(name) {
+        const [lat, lng] = points[name];
+        return {
+          x: (lng - minLng) * metersPerLng,
+          y: (maxLat - lat) * metersPerLat
+        };
+      }
+
+      const padding = 86;
+      const sketchWidth = 900;
+      const sketchHeight = 780;
+      const scale = Math.min(
+        (sketchWidth - padding * 2) / widthMeters,
+        (sketchHeight - padding * 2) / heightMeters
+      );
+
+      function plot(name) {
+        const meter = toMeters(name);
+        return {
+          x: padding + meter.x * scale,
+          y: padding + meter.y * scale
+        };
+      }
+
+      function pointsAttr(order) {
+        return order.map((name) => {
+          const point = plot(name);
+          return `${point.x},${point.y}`;
+        }).join(" ");
+      }
+
+      function linePath(order) {
+        return order.map((name, index) => {
+          const point = plot(name);
+          return `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`;
+        }).join(" ");
+      }
+
+      function distance(a, b) {
+        const p = points[a];
+        const q = points[b];
+        const dx = (q[1] - p[1]) * metersPerLng;
+        const dy = (q[0] - p[0]) * metersPerLat;
+        return Math.hypot(dx, dy);
+      }
+
+      function addSvg(tag, attrs, text) {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        if (text) el.textContent = text;
+        document.querySelector("#sketch").appendChild(el);
+        return el;
+      }
+
+      function draw() {
+        const svg = document.querySelector("#sketch");
+        svg.innerHTML = "";
+
+        addSvg("rect", { x: 18, y: 24, width: 92, height: 720, rx: 10, class: "road" });
+        addSvg("line", { x1: 64, y1: 64, x2: 64, y2: 710, class: "road-line" });
+        addSvg("text", { x: 28, y: 48, class: "small-label" }, "Road side");
+
+        addSvg("polygon", { points: pointsAttr(outerOrder), class: "boundary" });
+        addSvg("path", { d: linePath(roadSideOrder), class: "boundary-guide" });
+        addSvg("path", { d: linePath(oppositeSideOrder), class: "boundary-guide" });
+        addSvg("path", { d: linePath(nozzleOrder), class: "nozzle-line" });
+
+        Object.keys(points).forEach((name) => {
+          const point = plot(name);
+          const isOuter = outerOrder.includes(name);
+          const isNozzle = name.startsWith("N");
+          const className = isOuter ? "boundary-point" : isNozzle ? "nozzle-point" : "inner-point";
+          const radius = isOuter ? 8 : isNozzle ? 7 : 6;
+          addSvg("circle", { cx: point.x, cy: point.y, r: radius, class: `point ${className}` });
+          addSvg("text", { x: point.x + 10, y: point.y - 8, class: "label" }, name);
+        });
+
+        addSvg("text", { x: 760, y: 52, class: "small-label" }, "N");
+        addSvg("line", { x1: 768, y1: 78, x2: 768, y2: 128, stroke: "#172322", "stroke-width": 3 });
+        addSvg("polygon", { points: "768,66 758,82 778,82", fill: "#172322" });
+      }
+
+      function renderSummary() {
+        const perimeter =
+          distance("B1", "B2") +
+          distance("B2", "B3") +
+          distance("B3", "B4") +
+          distance("B4", "B1");
+
+        document.querySelector("#summary").innerHTML = `
+          <div><strong>Overall coordinate span</strong><span>${widthMeters.toFixed(1)} m east-west by ${heightMeters.toFixed(1)} m north-south</span></div>
+          <div><strong>Draft outer boundary</strong><span>B1 -> B2 -> B3 -> B4 -> B1</span></div>
+          <div><strong>Outer edge lengths</strong><span>B1-B2 ${distance("B1", "B2").toFixed(1)} m, B2-B3 ${distance("B2", "B3").toFixed(1)} m, B3-B4 ${distance("B3", "B4").toFixed(1)} m, B4-B1 ${distance("B4", "B1").toFixed(1)} m</span></div>
+          <div><strong>Approximate perimeter</strong><span>${perimeter.toFixed(1)} m using the four main boundary corners</span></div>
+          <div><strong>Important observation</strong><span>B5/B6 and B7/B8 are very close pairs. They may represent the same boundary features captured twice, so we can simplify them later.</span></div>
+        `;
+      }
+
+      function renderTable() {
+        document.querySelector("#pointRows").innerHTML = Object.keys(points)
+          .map((name) => {
+            const meter = toMeters(name);
+            return `
+              <tr>
+                <td><strong>${name}</strong></td>
+                <td>${points[name][0].toFixed(6)}</td>
+                <td>${points[name][1].toFixed(6)}</td>
+                <td>${meter.x.toFixed(1)}</td>
+                <td>${meter.y.toFixed(1)}</td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      function renderGeoJson() {
+        const coordinates = outerOrder
+          .concat(outerOrder[0])
+          .map((name) => [points[name][1], points[name][0]]);
+
+        const geojson = {
+          type: "Feature",
+          properties: {
+            name: "MN Moopen Petrol Pump Draft Outer Geofence",
+            source: "Field coordinates supplied by user"
+          },
+          geometry: {
+            type: "Polygon",
+            coordinates: [coordinates]
+          }
+        };
+
+        document.querySelector("#geojson").textContent = JSON.stringify(geojson, null, 2);
+      }
+
+      draw();
+      renderSummary();
+      renderTable();
+      renderGeoJson();
+    </script>
+  </body>
+</html>

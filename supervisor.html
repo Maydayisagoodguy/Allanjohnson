@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Supervisor Dashboard - MN Moopen Geofencing</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html" aria-label="Prototype home">
+          <span class="brand-mark">MN</span>
+          <span>
+            <strong>Geofence Ops</strong>
+            <small>Supervisor</small>
+          </span>
+        </a>
+        <nav class="nav-list" aria-label="Supervisor navigation">
+          <button class="nav-item active" data-panel="overview" type="button">Overview</button>
+          <button class="nav-item" data-panel="layout" type="button">Pump Layout</button>
+          <button class="nav-item" data-panel="alerts" type="button">Alerts</button>
+          <button class="nav-item" data-panel="breaks" type="button">Breaks</button>
+          <button class="nav-item" data-panel="reports" type="button">Reports</button>
+        </nav>
+        <a class="side-link" href="ca.html">Open CA View</a>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Live demo shift</p>
+            <h1>7:00 AM - 7:00 PM Collection Assistant Monitoring</h1>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" id="soundToggle" type="button" aria-label="Toggle alert sound" title="Toggle alert sound">Sound On</button>
+            <button class="primary-button" id="runDemo" type="button">Run Live Demo</button>
+            <button class="ghost-button" id="resetDemo" type="button">Reset</button>
+          </div>
+        </header>
+
+        <section class="panel active" id="overview">
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>Active CAs</span>
+              <strong id="activeCount">10</strong>
+              <p>Assigned to N1-N20 nozzle pairs</p>
+            </article>
+            <article class="metric-card">
+              <span>At Assigned Zone</span>
+              <strong id="atZoneCount">7</strong>
+              <p>Within dispenser-level tolerance</p>
+            </article>
+            <article class="metric-card warning">
+              <span>Needs Attention</span>
+              <strong id="alertCount">3</strong>
+              <p>Visual alerts shown to supervisor</p>
+            </article>
+            <article class="metric-card">
+              <span>Approved Breaks</span>
+              <strong id="breakCount">2</strong>
+              <p>Tea/lunch timing controlled by supervisor</p>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <section class="work-surface">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Employee overview</p>
+                  <h2>Collection Assistant Status</h2>
+                </div>
+                <span class="live-pill">Live</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>CA</th>
+                      <th>Assigned Nozzles</th>
+                      <th>Shift</th>
+                      <th>Status</th>
+                      <th>Supervisor Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="employeeRows"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="work-surface">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Current rules</p>
+                  <h2>Policy Engine</h2>
+                </div>
+              </div>
+              <div class="rule-list">
+                <div><strong>Compound</strong><span>Leaving is allowed only during approved tea/lunch break.</span></div>
+                <div><strong>Nozzle pair</strong><span>CA must remain near assigned petrol/diesel or CNG nozzle pair.</span></div>
+                <div><strong>Restroom</strong><span>Allowed automatically, return within 3 minutes.</span></div>
+                <div><strong>Cash counter</strong><span>Allowed automatically, return within 3 minutes.</span></div>
+                <div><strong>Office</strong><span>Supervisor-approved, return within 3 minutes.</span></div>
+                <div><strong>Breaks</strong><span>Two 10-minute tea breaks and one 1-hour lunch break.</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel" id="layout">
+          <div class="layout-grid">
+            <section class="pump-map work-surface" aria-label="Interactive petrol pump layout">
+              <div class="map-road">NH 544</div>
+              <div class="compound-boundary">
+                <span class="zone-label main-label">Combined Petrol Pump + CNG Geofence</span>
+                <div class="facility office">Office</div>
+                <div class="facility cash">Cash Counter</div>
+                <div class="facility restroom">Restroom</div>
+                <div class="facility break-area">Break Area</div>
+                <div class="island island-1" data-zone="D1">
+                  <b>Dispenser 1</b>
+                  <span>N1</span><span>N2</span><span>N3</span><span>N4</span>
+                </div>
+                <div class="island island-2" data-zone="D2">
+                  <b>Dispenser 2</b>
+                  <span>N5</span><span>N6</span><span>N7</span><span>N8</span>
+                </div>
+                <div class="island island-3" data-zone="D3">
+                  <b>Dispenser 3</b>
+                  <span>N9</span><span>N10</span><span>N11</span><span>N12</span>
+                </div>
+                <div class="island island-4" data-zone="D4">
+                  <b>Dispenser 4</b>
+                  <span>N13</span><span>N14</span><span>N15</span><span>N16</span>
+                </div>
+                <div class="island cng cng-1" data-zone="CNG1">
+                  <b>CNG 1</b>
+                  <span>N17</span><span>N18</span>
+                </div>
+                <div class="island cng cng-2" data-zone="CNG2">
+                  <b>CNG 2</b>
+                  <span>N19</span><span>N20</span>
+                </div>
+                <div id="mapMarkers"></div>
+              </div>
+            </section>
+
+            <section class="work-surface">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Scenario controls</p>
+                  <h2>Simulate Geofence Events</h2>
+                </div>
+              </div>
+              <div class="scenario-list">
+                <button data-scenario="outside" type="button">Send one CA outside compound</button>
+                <button data-scenario="restroom" type="button">Move CA to restroom over 3 minutes</button>
+                <button data-scenario="break" type="button">Start approved tea break</button>
+                <button data-scenario="cash" type="button">Move CA to cash counter</button>
+              </div>
+              <div class="map-legend">
+                <span><i class="dot ok"></i> At assigned nozzles</span>
+                <span><i class="dot warn"></i> Authorized timed movement</span>
+                <span><i class="dot danger"></i> Supervisor alert</span>
+                <span><i class="dot break"></i> Approved break</span>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel" id="alerts">
+          <section class="work-surface">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Supervisor alert center</p>
+                <h2>Live Alerts</h2>
+              </div>
+              <button class="ghost-button" id="acknowledgeAlerts" type="button">Acknowledge Visible Alerts</button>
+            </div>
+            <div class="alert-list" id="alertList"></div>
+          </section>
+        </section>
+
+        <section class="panel" id="breaks">
+          <div class="content-grid">
+            <section class="work-surface">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Supervisor approved timing</p>
+                  <h2>Break Schedule</h2>
+                </div>
+              </div>
+              <div class="break-grid" id="breakCards"></div>
+            </section>
+            <section class="work-surface">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Break rules</p>
+                  <h2>Automatic Return Logic</h2>
+                </div>
+              </div>
+              <div class="timeline">
+                <div><strong>1</strong><span>Supervisor approves planned tea/lunch timing.</span></div>
+                <div><strong>2</strong><span>CA can leave compound during approved break window.</span></div>
+                <div><strong>3</strong><span>Return is detected automatically when phone re-enters compound.</span></div>
+                <div><strong>4</strong><span>Exceeded tea or lunch duration becomes dashboard alert.</span></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel" id="reports">
+          <div class="report-grid">
+            <article class="work-surface report-card">
+              <span>Attendance Presence</span>
+              <strong>10 / 10 active</strong>
+              <p>Demo assumes geofence-based active shift confirmation.</p>
+            </article>
+            <article class="work-surface report-card">
+              <span>Zone Violations</span>
+              <strong id="reportViolations">3 today</strong>
+              <p>Includes outside compound and assigned-zone absence alerts.</p>
+            </article>
+            <article class="work-surface report-card">
+              <span>Break Compliance</span>
+              <strong>94%</strong>
+              <p>Tea and lunch timing can be reviewed after every shift.</p>
+            </article>
+            <article class="work-surface report-card">
+              <span>Future Expansion</span>
+              <strong>Biometric + WhatsApp</strong>
+              <p>Can be added later without changing the core geofence model.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

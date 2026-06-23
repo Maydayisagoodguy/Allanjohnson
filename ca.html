@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CA Phone View - MN Moopen Geofencing</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="ca-body">
+    <main class="phone-stage">
+      <section class="phone-shell">
+        <header class="phone-top">
+          <span>7:24 AM</span>
+          <span>Geofence Active</span>
+        </header>
+
+        <section class="phone-card hero-status">
+          <p class="eyebrow">Collection Assistant</p>
+          <label class="select-label" for="caSelect">Demo CA</label>
+          <select id="caSelect"></select>
+          <div class="status-orb ok" id="caStatusOrb"></div>
+          <h1 id="caName">Arjun</h1>
+          <p id="caStatusText">At assigned nozzles</p>
+        </section>
+
+        <section class="phone-card assignment-card">
+          <span>Assigned shift</span>
+          <strong>7:00 AM - 7:00 PM</strong>
+          <span>Assigned nozzles</span>
+          <strong id="caNozzles">N1 + N3</strong>
+          <span>Supervisor</span>
+          <strong>Shift Supervisor</strong>
+        </section>
+
+        <section class="phone-card">
+          <div class="phone-section-head">
+            <h2>Today</h2>
+            <span class="live-pill">Auto</span>
+          </div>
+          <div class="mini-rules">
+            <div><strong>Tea 1</strong><span>10 minutes</span></div>
+            <div><strong>Tea 2</strong><span>10 minutes</span></div>
+            <div><strong>Lunch</strong><span>1 hour</span></div>
+            <div><strong>Restroom</strong><span>Return within 3 minutes</span></div>
+            <div><strong>Cash counter</strong><span>Return within 3 minutes</span></div>
+          </div>
+        </section>
+
+        <section class="phone-card">
+          <div class="phone-section-head">
+            <h2>Location Status</h2>
+            <span id="caCompoundBadge" class="status-badge ok">Inside compound</span>
+          </div>
+          <div class="phone-map">
+            <div class="phone-boundary">
+              <span>N1-N20</span>
+              <i id="phoneMarker"></i>
+            </div>
+          </div>
+          <p class="phone-note">
+            In production this screen needs no manual location entry. The phone
+            reports location during the active shift and return from break is
+            detected automatically.
+          </p>
+        </section>
+
+        <section class="phone-card demo-only">
+          <div class="phone-section-head">
+            <h2>Demo Preview</h2>
+          </div>
+          <div class="phone-actions">
+            <button data-ca-state="assigned" type="button">At nozzles</button>
+            <button data-ca-state="cash" type="button">Cash</button>
+            <button data-ca-state="restroom" type="button">Restroom</button>
+            <button data-ca-state="outside" type="button">Outside</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

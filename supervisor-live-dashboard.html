@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Supervisor Live Dashboard</title>
+    <link rel="stylesheet" href="live-geofence.css" />
+  </head>
+  <body>
+    <main class="dashboard-page">
+      <header class="hero">
+        <p class="eyebrow">Supervisor live geofence</p>
+        <h1>CA Location Monitor</h1>
+        <p>
+          Open this page on the laptop. CA phones open the tracker page and send
+          live GPS updates here through Firebase.
+        </p>
+      </header>
+
+      <section class="summary-grid">
+        <article><span>Tracked CAs</span><strong id="totalCount">0</strong></article>
+        <article class="good"><span>Inside</span><strong id="insideCount">0</strong></article>
+        <article class="danger"><span>Alerts</span><strong id="alertCount">0</strong></article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="map-card">
+          <div class="live-map">
+            <div class="road">Road</div>
+            <div class="boundary">
+              <span class="corner b1">B1</span>
+              <span class="corner b2">B2</span>
+              <span class="corner b3">B3</span>
+              <span class="corner b4">B4</span>
+              <span class="nozzle n1">N1</span>
+              <span class="nozzle n2">N2</span>
+              <span class="nozzle n3">N3</span>
+              <span class="nozzle n4">N4</span>
+              <span class="nozzle n5">N5</span>
+              <span class="nozzle n6">N6</span>
+              <div id="markerLayer"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Live Alerts</h2>
+          <div id="alertList" class="alert-list">
+            <p>No live data yet.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>CA Status</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>CA</th>
+                <th>Assigned</th>
+                <th>Nearest</th>
+                <th>Boundary</th>
+                <th>Distance</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+            <tbody id="caRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="geofence-core.js"></script>
+    <script src="supervisor-live-dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple Geofence Test</title>
+    <link rel="stylesheet" href="simple-geofence.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Simple geofencing test</p>
+        <h1>Inside or Outside Compound</h1>
+        <p>
+          Use this page to test whether a phone is inside the petrol pump geofence.
+          No supervisor app, no CA app, no extra workflow.
+        </p>
+      </section>
+
+      <section class="dashboard">
+        <article class="status-card" id="statusCard">
+          <span class="status-label">Current Status</span>
+          <strong id="statusText">Not tracking</strong>
+          <p id="statusHint">Allow location access to begin testing.</p>
+        </article>
+
+        <article class="panel">
+          <h2>Geofence Area</h2>
+          <label>
+            Center latitude
+            <input id="centerLat" type="number" step="0.000001" placeholder="Example: 11.123456" />
+          </label>
+          <label>
+            Center longitude
+            <input id="centerLng" type="number" step="0.000001" placeholder="Example: 76.123456" />
+          </label>
+          <label>
+            Allowed radius in meters
+            <input id="radius" type="number" min="10" step="5" value="80" />
+          </label>
+          <div class="button-row">
+            <button id="useCurrentAsCenter" type="button">Use My Current Location As Center</button>
+            <button id="startTracking" type="button">Start Tracking</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Live Phone Location</h2>
+          <dl class="readout">
+            <div>
+              <dt>Device</dt>
+              <dd><input id="deviceName" type="text" value="Phone 1" /></dd>
+            </div>
+            <div>
+              <dt>Latitude</dt>
+              <dd id="currentLat">--</dd>
+            </div>
+            <div>
+              <dt>Longitude</dt>
+              <dd id="currentLng">--</dd>
+            </div>
+            <div>
+              <dt>Distance from center</dt>
+              <dd id="distanceText">--</dd>
+            </div>
+            <div>
+              <dt>Location accuracy</dt>
+              <dd id="accuracyText">--</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="map-panel">
+        <div class="map">
+          <div class="circle" id="circle"></div>
+          <div class="person" id="person">P</div>
+        </div>
+        <p>
+          The circle represents the allowed compound area. The dot represents the
+          phone location in relation to that center.
+        </p>
+      </section>
+
+      <section class="note">
+        <h2>Phone Test Note</h2>
+        <p>
+          Mobile browsers usually require HTTPS for live GPS. If location does not
+          start from a local file, this page should be hosted on a secure link for
+          real phone testing.
+        </p>
+      </section>
+    </main>
+
+    <script src="simple-geofence.js"></script>
+  </body>
+</html>

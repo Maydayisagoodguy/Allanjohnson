@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Supervisor Geofence Demo</title>
+    <link rel="stylesheet" href="geofence-demo.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Supervisor geofence demo</p>
+        <h1>Collection Assistant Live Boundary Monitor</h1>
+        <p>
+          Demo view for the supervisor. It shows the intended live behavior:
+          CAs inside the B1-B2-B3-B4 boundary, nearest nozzle, and alerts when
+          someone crosses outside.
+        </p>
+      </header>
+
+      <section class="summary-grid">
+        <article class="metric">
+          <span>Total CAs</span>
+          <strong id="totalCount">4</strong>
+        </article>
+        <article class="metric good">
+          <span>Inside Boundary</span>
+          <strong id="insideCount">3</strong>
+        </article>
+        <article class="metric danger">
+          <span>Alerts</span>
+          <strong id="alertCount">1</strong>
+        </article>
+      </section>
+
+      <section class="layout">
+        <article class="map-card">
+          <div class="map">
+            <div class="road">Road</div>
+            <div class="boundary">
+              <span class="corner b1">B1</span>
+              <span class="corner b2">B2</span>
+              <span class="corner b3">B3</span>
+              <span class="corner b4">B4</span>
+              <span class="nozzle n1">N1</span>
+              <span class="nozzle n2">N2</span>
+              <span class="nozzle n3">N3</span>
+              <span class="nozzle n4">N4</span>
+              <span class="nozzle n5">N5</span>
+              <span class="nozzle n6">N6</span>
+              <div id="caMarkers"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Demo Controls</h2>
+          <p>
+            These buttons simulate what will happen when real CA phones send GPS
+            data to the supervisor page.
+          </p>
+          <div class="button-list">
+            <button data-demo="inside" type="button">Bring All Inside</button>
+            <button data-demo="outside" type="button">Move CA 2 Outside</button>
+            <button data-demo="away" type="button">Move CA 3 Away From Nozzle</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Live CA Status</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>CA</th>
+                <th>Assigned Nozzle</th>
+                <th>Nearest Nozzle</th>
+                <th>Boundary Status</th>
+                <th>Alert</th>
+              </tr>
+            </thead>
+            <tbody id="caRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="supervisor-geofence-demo.js"></script>
+  </body>
+</html>

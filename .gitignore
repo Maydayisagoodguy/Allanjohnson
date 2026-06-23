@@ -1,0 +1,5 @@
+.edge-profile/
+*.zip
+*.log
+.DS_Store
+Thumbs.db

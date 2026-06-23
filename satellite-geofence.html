@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Satellite Geofence Preview</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: #172322;
+        background: #f5f7f7;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1220px, 100%);
+        margin: 0 auto;
+        padding: 18px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+        font-size: clamp(1.6rem, 5vw, 3.2rem);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.08rem;
+        letter-spacing: 0;
+      }
+
+      p,
+      li {
+        color: #657371;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        border-radius: 8px;
+        padding: 0 14px;
+        color: #ffffff;
+        background: #16845f;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      a.secondary {
+        color: #172322;
+        background: #e8eeed;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
+        gap: 14px;
+      }
+
+      .panel,
+      .map-panel {
+        border: 1px solid #d8e1df;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 16px 42px rgba(20, 32, 30, 0.08);
+      }
+
+      .map-panel {
+        overflow: hidden;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: 680px;
+        border: 0;
+        background: #dfe8e6;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .mini-sketch {
+        position: relative;
+        height: 330px;
+        margin-bottom: 16px;
+        border: 1px solid #d8e1df;
+        border-radius: 8px;
+        background:
+          linear-gradient(115deg, #9ba8b0 0 23%, #ffffff 23% 28%, transparent 28%),
+          #edf3f1;
+        overflow: hidden;
+      }
+
+      .fence {
+        position: absolute;
+        left: 30%;
+        top: 12%;
+        width: 52%;
+        height: 76%;
+        clip-path: polygon(18% 0, 84% 4%, 100% 100%, 0 92%);
+        border: 4px solid #16845f;
+        background: rgba(22, 132, 95, 0.13);
+      }
+
+      .point {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border: 3px solid #ffffff;
+        border-radius: 50%;
+        color: #ffffff;
+        background: #16845f;
+        font-size: 0.75rem;
+        font-weight: 950;
+      }
+
+      .npoint {
+        background: #a86400;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      code {
+        display: block;
+        margin-top: 12px;
+        overflow: auto;
+        padding: 12px;
+        border-radius: 8px;
+        background: #eef4f3;
+        color: #172322;
+        white-space: pre-wrap;
+      }
+
+      @media (max-width: 880px) {
+        main {
+          padding: 14px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        iframe {
+          height: 520px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Fast Satellite Preview</h1>
+      <p>
+        This version uses a Google Maps satellite embed for speed. The embedded
+        map shows the real satellite view; the side panel shows the draft
+        geofence boundary and points to compare.
+      </p>
+
+      <div class="actions">
+        <a href="https://www.google.com/maps?q=10.091511,76.345568&t=k&z=20" target="_blank" rel="noreferrer">Open In Google Maps Satellite</a>
+        <a class="secondary" href="petrol-pump-geofence.kml">Open KML File</a>
+        <a class="secondary" href="coordinate-sketch.html">Open Coordinate Sketch</a>
+      </div>
+
+      <section class="grid">
+        <article class="map-panel">
+          <iframe
+            title="Google satellite view centered on petrol pump"
+            src="https://www.google.com/maps?q=10.091511,76.345568&t=k&z=20&output=embed"
+            loading="eager"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </article>
+
+        <aside class="panel">
+          <h2>Draft Geofence Overlay Reference</h2>
+          <div class="mini-sketch">
+            <div class="fence"></div>
+            <span class="point" style="left:38%;top:11%;">B1</span>
+            <span class="point" style="left:72%;top:13%;">B2</span>
+            <span class="point" style="left:79%;top:82%;">B3</span>
+            <span class="point" style="left:29%;top:78%;">B4</span>
+            <span class="point npoint" style="left:45%;top:68%;">N1</span>
+            <span class="point npoint" style="left:48%;top:57%;">N2</span>
+            <span class="point npoint" style="left:51%;top:47%;">N3</span>
+            <span class="point npoint" style="left:54%;top:37%;">N4</span>
+            <span class="point npoint" style="left:57%;top:27%;">N5</span>
+            <span class="point npoint" style="left:61%;top:17%;">N6</span>
+          </div>
+
+          <h2>Boundary Coordinates</h2>
+          <ul>
+            <li>B1: 10.091776, 76.345603</li>
+            <li>B2: 10.091763, 76.345831</li>
+            <li>B3: 10.091247, 76.345600</li>
+            <li>B4: 10.091333, 76.345304</li>
+          </ul>
+
+          <code>Geofence polygon:
+B1 -> B2 -> B3 -> B4 -> B1</code>
+          <p>
+            For an exact polygon drawn over satellite imagery, open the KML in
+            Google Earth or import it into Google My Maps.
+          </p>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

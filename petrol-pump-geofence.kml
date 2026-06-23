@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>MN Moopen Petrol Pump Geofence</name>
+    <description>Draft geofence generated from B1, B2, B3, B4 and nozzle reference points N1-N6.</description>
+
+    <Style id="outerBoundaryStyle">
+      <LineStyle>
+        <color>ff00a85f</color>
+        <width>4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>3300a85f</color>
+      </PolyStyle>
+    </Style>
+
+    <Style id="boundaryPointStyle">
+      <IconStyle>
+        <color>ff00a85f</color>
+        <scale>1.1</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/paddle/grn-circle.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+
+    <Style id="nozzlePointStyle">
+      <IconStyle>
+        <color>ff0064c8</color>
+        <scale>1.0</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/paddle/orange-circle.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+
+    <Placemark>
+      <name>Draft Outer Geofence B1-B2-B3-B4</name>
+      <styleUrl>#outerBoundaryStyle</styleUrl>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>
+              76.345603,10.091776,0
+              76.345831,10.091763,0
+              76.345600,10.091247,0
+              76.345304,10.091333,0
+              76.345603,10.091776,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+
+    <Folder>
+      <name>Boundary Points</name>
+      <Placemark><name>B1</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345603,10.091776,0</coordinates></Point></Placemark>
+      <Placemark><name>B2</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345831,10.091763,0</coordinates></Point></Placemark>
+      <Placemark><name>B3</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345600,10.091247,0</coordinates></Point></Placemark>
+      <Placemark><name>B4</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345304,10.091333,0</coordinates></Point></Placemark>
+      <Placemark><name>B5</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345768,10.091584,0</coordinates></Point></Placemark>
+      <Placemark><name>B6</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345753,10.091575,0</coordinates></Point></Placemark>
+      <Placemark><name>B7</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345623,10.091415,0</coordinates></Point></Placemark>
+      <Placemark><name>B8</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345631,10.091411,0</coordinates></Point></Placemark>
+      <Placemark><name>B9</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345501,10.091294,0</coordinates></Point></Placemark>
+      <Placemark><name>B10</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345435,10.091438,0</coordinates></Point></Placemark>
+      <Placemark><name>B11</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345511,10.091540,0</coordinates></Point></Placemark>
+      <Placemark><name>B12</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345543,10.091591,0</coordinates></Point></Placemark>
+      <Placemark><name>B13</name><styleUrl>#boundaryPointStyle</styleUrl><Point><coordinates>76.345586,10.091681,0</coordinates></Point></Placemark>
+    </Folder>
+
+    <Folder>
+      <name>Nozzle Reference Points</name>
+      <Placemark><name>N1</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345498,10.091389,0</coordinates></Point></Placemark>
+      <Placemark><name>N2</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345518,10.091441,0</coordinates></Point></Placemark>
+      <Placemark><name>N3</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345555,10.091483,0</coordinates></Point></Placemark>
+      <Placemark><name>N4</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345589,10.091547,0</coordinates></Point></Placemark>
+      <Placemark><name>N5</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345628,10.091583,0</coordinates></Point></Placemark>
+      <Placemark><name>N6</name><styleUrl>#nozzlePointStyle</styleUrl><Point><coordinates>76.345666,10.091681,0</coordinates></Point></Placemark>
+    </Folder>
+  </Document>
+</kml>
